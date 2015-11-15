@@ -151,6 +151,7 @@ public final class ComponentTextDefaults {
         if (text == null && "month".equals(key.getKind())) {
             Calendar c = Calendar.getInstance();
             c.set(Calendar.MONTH, key.getIndex());
+            c.set(Calendar.DAY_OF_MONTH, 1);
             ComponentFormatDefaults defaults = ComponentFormatDefaults.getInstance();
             DateFormat monthFormat = defaults.getFormat(ComponentFormatDefaults.Key.MONTH_SELECTOR);
             text = monthFormat.format(c.getTime());
