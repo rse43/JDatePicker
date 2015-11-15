@@ -872,10 +872,14 @@ public class JDatePanel extends JComponent implements DatePanel {
                     Integer date = (Integer) internalModel.getValueAt(row, col);
 
                     // check constraints
+                    int oldYear = internalModel.getModel().getYear();
+                    int oldMonth = internalModel.getModel().getMonth();
                     int oldDay = internalModel.getModel().getDay();
                     internalModel.getModel().setDay(date);
                     if (!checkConstraints(internalModel.getModel())) {
                         // rollback
+                        internalModel.getModel().setYear(oldYear);
+                        internalModel.getModel().setMonth(oldMonth);
                         internalModel.getModel().setDay(oldDay);
                         return;
                     }
@@ -1014,7 +1018,7 @@ public class JDatePanel extends JComponent implements DatePanel {
          * Part of TableModel, day
          */
         public String getColumnName(int columnIndex) {
-            ComponentTextDefaults.Key key = ComponentTextDefaults.Key.getDowKey(((firstDayOfWeek - 1) + columnIndex) % 7);
+            ComponentTextDefaults.Key key = ComponentTextDefaults.Key.getDowKey((firstDayOfWeek + columnIndex) % 7);
             return getTexts().getText(key);
         }
 
